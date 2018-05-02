@@ -28,6 +28,7 @@ public class GameObject{
     public void addComponent(Component c){
         components.add(c);
         c.setParent(this);
+        c.init();
     }
 
     public <T extends Component> T getComponent(Class<T> type){
@@ -37,10 +38,10 @@ public class GameObject{
 
         System.err.println("No component of type: "+type.getTypeName()+" found in gameObject");
         return null;
+        //TODO: Add graceful exit procedures
     }
 
     public List<Component> components(){
         return components;
     }
-
 }

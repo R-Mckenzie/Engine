@@ -14,6 +14,6 @@ public abstract class Material{
         shader.bind();
     }
     protected abstract void updatePerPassUniforms();
-    protected abstract void updatePerInstanceUniforms(Mat4 MVC);
+    protected abstract void updatePerInstanceUniforms(Mat4 model, Mat4 view, Mat4 projection);
     protected abstract void updatePerMeshUniforms();
 }

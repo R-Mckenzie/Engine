@@ -67,6 +67,7 @@ public class SceneManagerGame implements IGame, ISceneManager{
 
     @Override
     public void update(){
+        currentScene.updateGameObjects();
         currentScene.update();
     }
 }

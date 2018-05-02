@@ -39,7 +39,8 @@ public class Renderer implements IRenderer{
         projection=createOrthoProjectionMatrix(windowWidth, windowHeight);
         capabilities=GL.createCapabilities();
         GL11.glClearColor(clearColour.x, clearColour.y, clearColour.z, 1);
-
+        GL11.glEnable(GL11.GL_BLEND);
+        GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
     }
 
     @Override
@@ -63,6 +64,7 @@ public class Renderer implements IRenderer{
     public void setCamera(Camera c){
         if(c!=null){
             camera=c;
+            System.out.println("set camera");
         }else{
             camera=new Camera();
         }
@@ -74,10 +76,7 @@ public class Renderer implements IRenderer{
         for(Material m:renderables.keySet()){
             m.bindShader();
             for(Renderable e:renderables.get(m)){
-                Mat4 mvc=new Mat4(projection);
-                mvc.mul(camera.getViewMatrix());
-                mvc.mul(e.transform().toMatrix());
-                m.updatePerInstanceUniforms(mvc);
+                m.updatePerInstanceUniforms(e.transform().toMatrix(), camera.getViewMatrix(), projection);
                 e.mesh().bind();
                 GL11.glDrawElements(GL11.GL_TRIANGLES, e.mesh().getIBO().count, GL11.GL_UNSIGNED_INT, 0);
             }

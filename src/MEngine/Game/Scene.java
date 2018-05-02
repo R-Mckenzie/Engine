@@ -32,7 +32,13 @@ public abstract class Scene{
         }
 
     }
-
+    protected void updateGameObjects(){
+        for(GameObject go:objects){
+            for(Component c:go.components()){
+                c.update();
+            }
+        }
+    }
     protected abstract void init();
     protected abstract void onStart();
     protected abstract void update();

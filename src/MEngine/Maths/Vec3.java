@@ -56,6 +56,23 @@ public class Vec3{
         return (float)Math.sqrt(x*x + y*y + z*z);
     }
 
+    public void normalise(){
+        float magnitude=mag();
+        if(magnitude>0){
+            x=x/magnitude;
+            y=y/magnitude;
+            z=z/magnitude;
+        }
+    }
+    public Vec3 normalised(){
+        float magnitude=mag();
+        if(magnitude>0){
+            return new Vec3(x/magnitude, y/magnitude, z/magnitude);
+        }else{
+            return new Vec3();
+        }
+    }
+
     public float dot(Vec3 b){
         return ((x*b.x)+(y*b.y)+(z*b.z));
     }

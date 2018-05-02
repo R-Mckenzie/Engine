@@ -20,7 +20,8 @@ public class Window implements IWindow{
     public Window(int width, int height, String title){
         this.width=width;
         this.height=height;
-        id=create(width, height, title, true, false);
+        id=create(width, height, title, false, false);
+        MEngine.Input.Keyboard.initialise(id);
     }
 
     public void refresh(){
@@ -72,7 +73,6 @@ public class Window implements IWindow{
         long winId = glfwCreateWindow(width, height, title, isFullScreen?glfwGetPrimaryMonitor():NULL, NULL);
         if(winId==NULL)throw new RuntimeException("Failed to create the GLFW window");
 
-        setupKeyCallback(winId);
         centerWindow(winId);
         setupResizeCallback(winId);
 
@@ -100,11 +100,7 @@ public class Window implements IWindow{
             glfwSetWindowPos(winId, (vidmode.width()-pWidth.get(0))/2, (vidmode.height()-pHeight.get(0))/2);
         }
     }
-    private void setupKeyCallback(long winId){
-        glfwSetKeyCallback(winId, (window, key, scancode, action, mods) -> {
-            if ( key == GLFW_KEY_ESCAPE && action == GLFW_RELEASE )
-                close();
-        }); }
+
     private void setSettings(boolean isResizable){
         glfwWindowHint(GLFW_RESIZABLE, isResizable?GLFW_TRUE:GLFW_FALSE);
         glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE);

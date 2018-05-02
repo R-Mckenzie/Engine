@@ -11,6 +11,12 @@ public class Transform{
         scale=new Vec3(1,1,1);
     }
 
+    public Transform(Vec3 position){
+        this.position=position;
+        this.rotation=new Vec3();
+        scale=new Vec3(1,1,1);
+    }
+
     public Transform(Vec3 position, Vec3 rotation, Vec3 scale){
         this.position=position;
         this.rotation=rotation;
